@@ -24,10 +24,11 @@ public class ClienteAval3 {
 	    filmes.add(new Filme("Matrix Reloaded", 25.0, cinemaTimeline));
 	    filmes.add(new Filme("Matrix Revolutions", 15.0, cinemaTimeline));
 
-	    Pacote pacote = new Pacote("Trilogia Matrix", filmes);
+		// Removidos pois dependem do builder
+	    // Pacote pacote = new Pacote("Trilogia Matrix", filmes);
 
-        System.out.println("Preço da Super Coleção: " + pacote.getPreco());
-        System.out.println("Duração da Super Coleção: " + pacote.getDuracao());
+		// System.out.println("Preço da Super Coleção: " + pacote.getPreco());
+		// System.out.println("Duração da Super Coleção: " + pacote.getDuracao());
 
 
         
@@ -35,7 +36,7 @@ public class ClienteAval3 {
         
         Playlist playlist = new Playlist();
         
-        playlist.addItem(pacote);
+		// playlist.addItem(pacote);
         playlist.addItem(new MP3("Son Of A Gun", 1000));
         
         double largura =  playlist.getBandaTotal();

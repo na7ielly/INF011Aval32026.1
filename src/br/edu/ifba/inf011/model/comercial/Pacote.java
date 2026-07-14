@@ -4,39 +4,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.edu.ifba.inf011.avaliacao3.composite.ConteudoComponent;
 import br.edu.ifba.inf011.model.playlist.PlaylistItem;
 
-public class Pacote implements PlaylistItem{
+public class Pacote implements PlaylistItem, ConteudoComponent {
 
 		protected String titulo;
-	    protected List<Filme> filmes;
+	    protected List<ConteudoComponent> conteudos;
 	    
 	    public Pacote(String titulo) {
 	    	this.titulo = titulo;
-	    	this.filmes = new ArrayList<Filme>();
-	    };
-	    
-	    public Pacote(String titulo, List<Filme> filmes) {
-	    	this.titulo = titulo;
-	    	this.filmes = filmes;
-	    };	    
-	    
+	    	this.conteudos = new ArrayList<ConteudoComponent>();
+	    }
+
 	    public String getTitulo() {
 	    	return this.titulo;
 	    }
-	        
+
+		@Override
 	    public Double getPreco() {
-	        double soma = this.filmes.stream().mapToDouble(Filme::getPreco).sum();
+	        double soma = this.conteudos.stream().mapToDouble(ConteudoComponent::getPreco).sum();
 	        return soma * 0.9;
 	    }
-	        
-	    public Double getDuracao() {
-	        return  this.filmes.stream().mapToDouble(Filme::getDuracao).sum();
-	    }    
-	    
-		public String toXML() {
-			String filmesXML = this.filmes.stream()
-                    .map(Filme::toXML)
+
+		@Override
+	    public Integer getDuracao() {
+	        return  this.conteudos.stream().mapToInt(ConteudoComponent::getDuracao).sum();
+	    }
+
+		@Override
+	    public String toXML() {
+			String filmesXML = this.conteudos.stream()
+                    .map(ConteudoComponent::toXML)
                     .collect(Collectors.joining());
 			return "<pacote titulo=\"" + this.getTitulo() + "\">\n" 
 				+ filmesXML 
@@ -45,6 +44,5 @@ public class Pacote implements PlaylistItem{
 
 		public Double getBandwidth(Double bandPerSecond) {
 			return this.getDuracao() * bandPerSecond;
-		}    
-
+		}
 	}

@@ -1,8 +1,9 @@
 package br.edu.ifba.inf011.model.comercial;
 
 import br.edu.ifba.inf011.avaliacao1.timeline.builder.Timeline;
+import br.edu.ifba.inf011.avaliacao3.composite.ConteudoComponent;
 
-public class Filme {
+public class Filme implements ConteudoComponent {
 	private String titulo;
     private Double preco;
     private Timeline timeline;
@@ -12,11 +13,13 @@ public class Filme {
         this.preco = preco;
         this.timeline = timeline;
 	}
-	
+
+	@Override
     public Double getPreco() {
     	return this.preco; 
     }
-    
+
+	@Override
     public Integer getDuracao() { 
     	return this.timeline.getDurationInSeconds();
     }
@@ -25,9 +28,8 @@ public class Filme {
 		return this.titulo;
 	}
 
-
+	@Override
 	public String toXML() {
-		String xml = "<filme titulo=\"" + this.getTitulo() + "\"/>\n";
-		return xml;
-	}   	
+		return "<filme titulo=\"" + this.getTitulo() + "\"/>\n";
+	}
 }
