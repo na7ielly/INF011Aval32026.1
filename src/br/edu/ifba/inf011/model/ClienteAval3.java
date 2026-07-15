@@ -24,15 +24,10 @@ public class ClienteAval3 {
 	    filmes.add(new Filme("Matrix Reloaded", 25.0, cinemaTimeline));
 	    filmes.add(new Filme("Matrix Revolutions", 15.0, cinemaTimeline));
 
-		// Removidos pois dependem do builder
-	    // Pacote pacote = new Pacote("Trilogia Matrix", filmes);
+	    Pacote pacote = new Pacote("Trilogia Matrix");
 
-		// System.out.println("Preço da Super Coleção: " + pacote.getPreco());
-		// System.out.println("Duração da Super Coleção: " + pacote.getDuracao());
-
-
-        
-
+		System.out.println("Preço da Super Coleção: " + pacote.getPreco());
+		System.out.println("Duração da Super Coleção: " + pacote.getDuracao());
         
         Playlist playlist = new Playlist();
         
