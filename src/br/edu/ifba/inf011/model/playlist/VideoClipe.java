@@ -2,23 +2,29 @@ package br.edu.ifba.inf011.model.playlist;
 
 import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 
-/** ConcreteElement do padrão Visitor. */
-public class MP3 implements PlaylistItem {
+/** ConcreteElement que representa um videoclipe enviado pelo usuário. */
+public class VideoClipe implements PlaylistItem {
 
     private final String nome;
     private final double tamanhoMegaBytes;
+    private final String link;
 
-    public MP3(String nome, double tamanhoMegaBytes) {
+    public VideoClipe(String nome, double tamanhoMegaBytes, String link) {
         this.nome = nome;
         this.tamanhoMegaBytes = tamanhoMegaBytes;
+        this.link = link;
+    }
+
+    public String getNome() {
+        return this.nome;
     }
 
     public double getTamanhoMegaBytes() {
         return this.tamanhoMegaBytes;
     }
 
-    public String getNome() {
-        return this.nome;
+    public String getLink() {
+        return this.link;
     }
 
     @Override

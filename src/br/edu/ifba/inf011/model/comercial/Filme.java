@@ -2,34 +2,37 @@ package br.edu.ifba.inf011.model.comercial;
 
 import br.edu.ifba.inf011.avaliacao1.timeline.builder.Timeline;
 import br.edu.ifba.inf011.avaliacao3.composite.ConteudoComponent;
+import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 
+/** Leaf do Composite e ConcreteElement do Visitor. */
 public class Filme implements ConteudoComponent {
-	private String titulo;
-    private Double preco;
-    private Timeline timeline;
 
-	public Filme(String titulo, Double preco, Timeline timeline) {
-    	this.titulo = titulo;
+    private final String titulo;
+    private final Double preco;
+    private final Timeline timeline;
+
+    public Filme(String titulo, Double preco, Timeline timeline) {
+        this.titulo = titulo;
         this.preco = preco;
         this.timeline = timeline;
-	}
+    }
 
-	@Override
+    @Override
     public Double getPreco() {
-    	return this.preco; 
+        return this.preco;
     }
 
-	@Override
-    public Integer getDuracao() { 
-    	return this.timeline.getDurationInSeconds();
+    @Override
+    public Integer getDuracao() {
+        return this.timeline.getDurationInSeconds();
     }
 
-	public String getTitulo() {
-		return this.titulo;
-	}
+    public String getTitulo() {
+        return this.titulo;
+    }
 
-	@Override
-	public String toXML() {
-		return "<filme titulo=\"" + this.getTitulo() + "\"/>\n";
-	}
+    @Override
+    public void accept(PlaylistVisitor visitor) {
+        visitor.visit(this);
+    }
 }

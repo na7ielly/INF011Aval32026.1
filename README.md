@@ -22,8 +22,11 @@ dos valores dos conteúdos internos. Dessa forma, pode armazenar tanto filmes qu
 complexa.
 
 #### 3. Observações
-- Método `toXML()` adicionado à interface devido ao seu caráter também recursivo
+- A exportação XML foi concentrada no `XmlPlaylistVisitor`, evitando essa responsabilidade nas classes do domínio.
 - A adição e remoção de elementos poderia ser definida no Composite, mas entendemos que se trata de operações da criação 
 do pacote e, portanto, delegadas ao builder. Adicioná-los ao Composite permitiria a edição de pacotes já fechados
 
 ### Visitor
+### Visitor
+
+Na Questão II foi aplicado o padrão Visitor porque o sistema precisa realizar diferentes operações sobre os elementos da playlist, como calcular a largura de banda, gerar um relatório de nomes e exportar os dados para XML, sem inserir essas responsabilidades nas classes de domínio. A interface `PlaylistVisitor` assume o papel de Visitor. As classes `LarguraBandaVisitor`, `RelatorioNomesVisitor` e `XmlPlaylistVisitor` são os ConcreteVisitors. A interface `PlaylistItem` representa o Element. As classes `MP3`, `VideoClipe`, `Filme`, `Episodio`, `Serie` e `Pacote` são os ConcreteElements. A classe `Playlist` representa a ObjectStructure e a classe `ClienteAval3` representa o Client.
