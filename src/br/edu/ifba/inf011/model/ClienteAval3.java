@@ -15,21 +15,21 @@ import br.edu.ifba.inf011.model.playlist.VideoClipe;
 
 public class ClienteAval3 {
 
-    public void run() {
-        TimelineBuilder builder = new CinemaTimelineBuilder();
-        Timeline timelineFilme = builder.reset()
-                .addClassAdapterVideo("MainShot_4K.mov")
-                .build();
+	public void run() {
+		
+		TimelineBuilder builder = new CinemaTimelineBuilder();
+	    Timeline cinemaTimeline = builder.reset().addClassAdapterVideo("MainShot_4K.mov").build();
+	    
+	    List<Filme> filmes = new ArrayList<Filme>();
+	    filmes.add(new Filme("Matrix", 20.0, cinemaTimeline));
+	    filmes.add(new Filme("Matrix Reloaded", 25.0, cinemaTimeline));
+	    filmes.add(new Filme("Matrix Revolutions", 15.0, cinemaTimeline));
 
-        Timeline timelineEpisodio = builder.reset()
-                .addClassAdapterVideo("EpisodeShot_4K.mov")
-                .build();
+	    Pacote pacote = new Pacote("Trilogia Matrix");
 
-        Filme filme = new Filme("Matrix", 20.0, timelineFilme);
-        Episodio episodio = new Episodio("The National Anthem", 6.0, 1, timelineEpisodio);
-        Serie serie = new Serie("Black Mirror", 1)
-                .adicionarEpisodio(episodio);
-
+		System.out.println("Preço da Super Coleção: " + pacote.getPreco());
+		System.out.println("Duração da Super Coleção: " + pacote.getDuracao());
+        
         Playlist playlist = new Playlist();
         playlist.addItem(filme);
         playlist.addItem(serie);
