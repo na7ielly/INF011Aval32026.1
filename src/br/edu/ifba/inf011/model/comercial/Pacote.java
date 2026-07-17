@@ -1,48 +1,44 @@
 package br.edu.ifba.inf011.model.comercial;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import br.edu.ifba.inf011.avaliacao3.composite.ConteudoComponent;
-import br.edu.ifba.inf011.model.playlist.PlaylistItem;
+import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 
-public class Pacote implements PlaylistItem, ConteudoComponent {
+/** Composite do padrão Composite e ConcreteElement do Visitor. */
+public class Pacote implements ConteudoComponent {
 
-		protected String titulo;
-	    protected List<ConteudoComponent> conteudos;
-	    
-	    public Pacote(String titulo) {
-	    	this.titulo = titulo;
-	    	this.conteudos = new ArrayList<ConteudoComponent>();
-	    }
+    protected String titulo;
+    protected List<ConteudoComponent> conteudos;
 
-	    public String getTitulo() {
-	    	return this.titulo;
-	    }
+    public Pacote(String titulo) {
+        this.titulo = titulo;
+        this.conteudos = new ArrayList<ConteudoComponent>();
+    }
 
-		@Override
-	    public Double getPreco() {
-	        double soma = this.conteudos.stream().mapToDouble(ConteudoComponent::getPreco).sum();
-	        return soma * 0.9;
-	    }
+    public String getTitulo() {
+        return this.titulo;
+    }
 
-		@Override
-	    public Integer getDuracao() {
-	        return  this.conteudos.stream().mapToInt(ConteudoComponent::getDuracao).sum();
-	    }
+    @Override
+    public Double getPreco() {
+        double soma = this.conteudos.stream().mapToDouble(ConteudoComponent::getPreco).sum();
+        return soma * 0.9;
+    }
 
-		@Override
-	    public String toXML() {
-			String filmesXML = this.conteudos.stream()
-                    .map(ConteudoComponent::toXML)
-                    .collect(Collectors.joining());
-			return "<pacote titulo=\"" + this.getTitulo() + "\">\n" 
-				+ filmesXML 
-				+ "</pacote>\n";
-		}
+    @Override
+    public Integer getDuracao() {
+        return this.conteudos.stream().mapToInt(ConteudoComponent::getDuracao).sum();
+    }
 
-		public Double getBandwidth(Double bandPerSecond) {
-			return this.getDuracao() * bandPerSecond;
-		}
-	}
+    public List<ConteudoComponent> getConteudos() {
+        return Collections.unmodifiableList(this.conteudos);
+    }
+
+    @Override
+    public void accept(PlaylistVisitor visitor) {
+        visitor.visit(this);
+    }
+}

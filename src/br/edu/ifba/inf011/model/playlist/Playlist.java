@@ -1,36 +1,33 @@
 package br.edu.ifba.inf011.model.playlist;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class Playlist{
-	
-	private List<PlaylistItem> items;
-	
-	public Playlist() {
-		this.items = new ArrayList<PlaylistItem>();
-	}
-	
-	public void addItem(PlaylistItem item) {
-		this.items.add(item);
-	}
-	
-	public String toXML() {
-		
-		String xml = this.items.stream()
-                	.map(PlaylistItem::toXML)
-                	.collect(Collectors.joining());
-		return "<playlist>\n" 
-				+ xml 
-				+"</playlist>\n";
-	}
+import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 
-	public Double getBandaTotal() {
-	    return this.items.stream()
-	                     .mapToDouble(item -> item.getBandwidth(PlaylistItem.BAND_PER_SECOND))
-	                     .sum();
-	}
+/** ObjectStructure do padrão Visitor. */
+public class Playlist {
 
-	
+    private final List<PlaylistItem> items;
+
+    public Playlist() {
+        this.items = new ArrayList<PlaylistItem>();
+    }
+
+    public void addItem(PlaylistItem item) {
+        this.items.add(item);
+    }
+
+    public void removeItem(PlaylistItem item) {
+        this.items.remove(item);
+    }
+
+    public List<PlaylistItem> getItems() {
+        return Collections.unmodifiableList(this.items);
+    }
+
+    public void accept(PlaylistVisitor visitor) {
+        visitor.visit(this);
+    }
 }

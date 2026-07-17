@@ -1,37 +1,13 @@
 package br.edu.ifba.inf011.model.playlist;
 
-public class Video implements PlaylistItem {
-	
-    public String nome;
-    public double tamanhoMegaBytes;
-    public String link;
+/**
+ * Mantém compatibilidade com o nome usado no código-base.
+ * O tipo adotado no enunciado e no Visitor é VideoClipe.
+ */
+@Deprecated
+public class Video extends VideoClipe {
 
-    public Video(String nome, double tamanho, String link) { 
-        this.nome = nome; 
-        this.tamanhoMegaBytes = tamanho; 
-        this.link = link;
+    public Video(String nome, double tamanhoMegaBytes, String link) {
+        super(nome, tamanhoMegaBytes, link);
     }
-    
-    public double getTamanhoMegaBytes() {
-    	return this.tamanhoMegaBytes;
-    }
-
-    
-    public String getNome() {
-    	return this.nome;
-    }
-
-	@Override
-	public String toXML() {
-		return "  <video nome=\"" + this.getNome() + "\" link=\"" + this.getLink() + "\"/>\n";
-	}
-
-	private String getLink() {
-		return this.link;
-	}
-
-	@Override
-	public Double getBandwidth(Double bandPerSecond) {
-		return this.getTamanhoMegaBytes();
-	}
 }

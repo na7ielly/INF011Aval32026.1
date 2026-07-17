@@ -1,16 +1,17 @@
-
 package br.edu.ifba.inf011.model;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import br.edu.ifba.inf011.avaliacao1.timeline.builder.CinemaTimelineBuilder;
 import br.edu.ifba.inf011.avaliacao1.timeline.builder.Timeline;
 import br.edu.ifba.inf011.avaliacao1.timeline.builder.TimelineBuilder;
+import br.edu.ifba.inf011.avaliacao3.visitor.LarguraBandaVisitor;
+import br.edu.ifba.inf011.avaliacao3.visitor.RelatorioNomesVisitor;
+import br.edu.ifba.inf011.avaliacao3.visitor.XmlPlaylistVisitor;
+import br.edu.ifba.inf011.model.comercial.Episodio;
 import br.edu.ifba.inf011.model.comercial.Filme;
-import br.edu.ifba.inf011.model.comercial.Pacote;
+import br.edu.ifba.inf011.model.comercial.Serie;
 import br.edu.ifba.inf011.model.playlist.MP3;
 import br.edu.ifba.inf011.model.playlist.Playlist;
+import br.edu.ifba.inf011.model.playlist.VideoClipe;
 
 public class ClienteAval3 {
 
@@ -30,20 +31,31 @@ public class ClienteAval3 {
 		System.out.println("Duração da Super Coleção: " + pacote.getDuracao());
         
         Playlist playlist = new Playlist();
-        
-		// playlist.addItem(pacote);
-        playlist.addItem(new MP3("Son Of A Gun", 1000));
-        
-        double largura =  playlist.getBandaTotal();
-        System.out.println("Consumo de Largura de Banda: " + largura);
-        
-        String  xml = playlist.toXML();
-        System.out.println(xml);
-    }		
+        playlist.addItem(filme);
+        playlist.addItem(serie);
+        playlist.addItem(new MP3("Son Of A Gun", 8.5));
+        playlist.addItem(new VideoClipe(
+                "Making of Matrix",
+                42.0,
+                "https://stream.local/making-of-matrix"));
 
-	public static void main(String[] args) {
-		new ClienteAval3().run();
-	}
+        LarguraBandaVisitor larguraBandaVisitor = new LarguraBandaVisitor();
+        playlist.accept(larguraBandaVisitor);
 
-	
+        RelatorioNomesVisitor relatorioNomesVisitor = new RelatorioNomesVisitor();
+        playlist.accept(relatorioNomesVisitor);
+
+        XmlPlaylistVisitor xmlPlaylistVisitor = new XmlPlaylistVisitor();
+        playlist.accept(xmlPlaylistVisitor);
+
+        System.out.printf("Consumo de Largura de Banda: %.2f MB%n",
+                larguraBandaVisitor.getTotalMegaBytes());
+        System.out.println();
+        System.out.println(relatorioNomesVisitor.getRelatorio());
+        System.out.println(xmlPlaylistVisitor.getXml());
+    }
+
+    public static void main(String[] args) {
+        new ClienteAval3().run();
+    }
 }
