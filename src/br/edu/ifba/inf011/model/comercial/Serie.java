@@ -4,20 +4,30 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import br.edu.ifba.inf011.avaliacao3.composite.ConteudoComponent;
 import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 import br.edu.ifba.inf011.model.playlist.PlaylistItem;
 
-/** ConcreteElement composto do Visitor. */
-public class Serie implements PlaylistItem {
+/** Leaf do Composite e ConcreteElement composto do Visitor. */
+public class Serie implements PlaylistItem, ConteudoComponent {
 
     private final String titulo;
     private final Integer temporada;
+    private final Double desconto;
     private final List<Episodio> episodios;
 
     public Serie(String titulo, Integer temporada) {
         this.titulo = titulo;
         this.temporada = temporada;
         this.episodios = new ArrayList<Episodio>();
+        this.desconto = 0.0;
+    }
+
+    public Serie(String titulo, Integer temporada, Double desconto) {
+        this.titulo = titulo;
+        this.temporada = temporada;
+        this.episodios = new ArrayList<Episodio>();
+        this.desconto = desconto;
     }
 
     public Serie adicionarEpisodio(Episodio episodio) {
@@ -34,11 +44,13 @@ public class Serie implements PlaylistItem {
         return this.titulo;
     }
 
+    @Override
     public Double getPreco() {
         double soma = this.episodios.stream().mapToDouble(Episodio::getPreco).sum();
-        return soma * 0.9;
+        return soma * (1 - desconto);
     }
 
+    @Override
     public Integer getDuracao() {
         return this.episodios.stream().mapToInt(Episodio::getDuracao).sum();
     }

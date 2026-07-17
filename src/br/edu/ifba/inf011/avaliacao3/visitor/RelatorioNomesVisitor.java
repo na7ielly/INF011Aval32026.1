@@ -8,7 +8,7 @@ import br.edu.ifba.inf011.model.comercial.Serie;
 import br.edu.ifba.inf011.model.playlist.MP3;
 import br.edu.ifba.inf011.model.playlist.Playlist;
 import br.edu.ifba.inf011.model.playlist.PlaylistItem;
-import br.edu.ifba.inf011.model.playlist.VideoClipe;
+import br.edu.ifba.inf011.model.playlist.Video;
 
 /** ConcreteVisitor responsável pelo relatório hierárquico de nomes. */
 public class RelatorioNomesVisitor implements PlaylistVisitor {
@@ -38,8 +38,8 @@ public class RelatorioNomesVisitor implements PlaylistVisitor {
     }
 
     @Override
-    public void visit(VideoClipe videoClipe) {
-        this.adicionarLinha("Videoclipe: " + videoClipe.getNome());
+    public void visit(Video video) {
+        this.adicionarLinha("Videoclipe: " + video.getNome());
     }
 
     @Override

@@ -1,13 +1,34 @@
 package br.edu.ifba.inf011.model.playlist;
 
-/**
- * Mantém compatibilidade com o nome usado no código-base.
- * O tipo adotado no enunciado e no Visitor é VideoClipe.
- */
-@Deprecated
-public class Video extends VideoClipe {
+import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
+
+/** ConcreteElement que representa um videoclipe enviado pelo usuário. */
+public class Video implements PlaylistItem {
+
+    private final String nome;
+    private final double tamanhoMegaBytes;
+    private final String link;
 
     public Video(String nome, double tamanhoMegaBytes, String link) {
-        super(nome, tamanhoMegaBytes, link);
+        this.nome = nome;
+        this.tamanhoMegaBytes = tamanhoMegaBytes;
+        this.link = link;
+    }
+
+    public String getNome() {
+        return this.nome;
+    }
+
+    public double getTamanhoMegaBytes() {
+        return this.tamanhoMegaBytes;
+    }
+
+    public String getLink() {
+        return this.link;
+    }
+
+    @Override
+    public void accept(PlaylistVisitor visitor) {
+        visitor.visit(this);
     }
 }

@@ -8,9 +8,6 @@ import br.edu.ifba.inf011.avaliacao3.composite.ConteudoComponent;
 import br.edu.ifba.inf011.model.comercial.Pacote;
 
 public class PacotePromocionalBuilder implements PacoteBuilder {
-
-    private static final Double DESCONTO_PADRAO = 10.0;
-
     private String titulo;
     private Double descontoPercentual;
     private List<ConteudoComponent> conteudos;
@@ -22,7 +19,7 @@ public class PacotePromocionalBuilder implements PacoteBuilder {
     @Override
     public PacoteBuilder reset() {
         this.titulo = null;
-        this.descontoPercentual = DESCONTO_PADRAO;
+        this.descontoPercentual = 0.0;
         this.conteudos = new ArrayList<>();
         return this;
     }
@@ -36,8 +33,8 @@ public class PacotePromocionalBuilder implements PacoteBuilder {
     @Override
     public PacoteBuilder comDesconto(Double percentual) {
         Objects.requireNonNull(percentual, "O desconto é obrigatório.");
-        if (percentual < 0.0 || percentual > 100.0) {
-            throw new IllegalArgumentException("O desconto deve estar entre 0 e 100.");
+        if (percentual < 0.0 || percentual > 1.0) {
+            throw new IllegalArgumentException("O desconto deve estar entre 0 e 1.");
         }
         this.descontoPercentual = percentual;
         return this;

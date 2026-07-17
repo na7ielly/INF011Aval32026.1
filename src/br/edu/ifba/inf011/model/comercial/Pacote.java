@@ -11,11 +11,18 @@ import br.edu.ifba.inf011.avaliacao3.visitor.PlaylistVisitor;
 public class Pacote implements ConteudoComponent {
 
     protected String titulo;
+    protected Double desconto;
     protected List<ConteudoComponent> conteudos;
 
     public Pacote(String titulo) {
         this.titulo = titulo;
         this.conteudos = new ArrayList<ConteudoComponent>();
+    }
+
+    public Pacote(String titulo, Double desconto, List<ConteudoComponent> conteudos) {
+        this.titulo = titulo;
+        this.desconto = desconto;
+        this.conteudos = conteudos;
     }
 
     public String getTitulo() {
@@ -25,7 +32,7 @@ public class Pacote implements ConteudoComponent {
     @Override
     public Double getPreco() {
         double soma = this.conteudos.stream().mapToDouble(ConteudoComponent::getPreco).sum();
-        return soma * 0.9;
+        return soma * (1 - desconto);
     }
 
     @Override
