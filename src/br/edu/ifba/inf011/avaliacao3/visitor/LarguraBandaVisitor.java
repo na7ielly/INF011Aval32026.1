@@ -8,7 +8,7 @@ import br.edu.ifba.inf011.model.comercial.Serie;
 import br.edu.ifba.inf011.model.playlist.MP3;
 import br.edu.ifba.inf011.model.playlist.Playlist;
 import br.edu.ifba.inf011.model.playlist.PlaylistItem;
-import br.edu.ifba.inf011.model.playlist.VideoClipe;
+import br.edu.ifba.inf011.model.playlist.Video;
 
 /** ConcreteVisitor responsável pelo cálculo da largura de banda total. */
 public class LarguraBandaVisitor implements PlaylistVisitor {
@@ -44,8 +44,8 @@ public class LarguraBandaVisitor implements PlaylistVisitor {
     }
 
     @Override
-    public void visit(VideoClipe videoClipe) {
-        this.totalMegaBytes += videoClipe.getTamanhoMegaBytes();
+    public void visit(Video video) {
+        this.totalMegaBytes += video.getTamanhoMegaBytes();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class LarguraBandaVisitor implements PlaylistVisitor {
         }
     }
 
-    public Double getTotalMegaBytes() {
+    public Double getBandaTotal() {
         return this.totalMegaBytes;
     }
 }

@@ -1,8 +1,21 @@
-# IFBAINF011Aval32026.1
+# IFBA INF011 Aval3 2026.1
+Equipe: Mateus Matos, Natielly Bomfim, Yuri Mascarenhas
 
 ## Padrões escolhidos
 
 ### Builder
+
+#### 1. Motivação
+Conforme enunciado: "a primeira versão do processo de instanciar esses
+pacotes aninhados resultou em **construtores gigantescos, repetitivos e ilegíveis**". O Builder permite resolver 
+esse problema ao mover o processo de construção para uma nova classe **builder**, segmentada em etapas.
+
+#### 2. Participantes
+- 2.1. `PacoteBuilder`: É a interface `Builder` que define as etapas de construção de um `Pacote`. 
+No caso do nosso domínio, as etapas são o título do pacote, o desconto aplicado, e os `ConteudoComponent` presentes nele
+  (ver Composite a seguir).
+- 2.2. PacotePromocionalBuilder: Trata-se do `ConcreteBuilder` que implementa a interface
+- Não foi adicionado o `Director`, pois entende-se que o problema não requer sua utilização
 
 ### Composite
 
@@ -27,6 +40,19 @@ complexa.
 do pacote e, portanto, delegadas ao builder. Adicioná-los ao Composite permitiria a edição de pacotes já fechados
 
 ### Visitor
-### Visitor
 
-Na Questão II foi aplicado o padrão Visitor porque o sistema precisa realizar diferentes operações sobre os elementos da playlist, como calcular a largura de banda, gerar um relatório de nomes e exportar os dados para XML, sem inserir essas responsabilidades nas classes de domínio. A interface `PlaylistVisitor` assume o papel de Visitor. As classes `LarguraBandaVisitor`, `RelatorioNomesVisitor` e `XmlPlaylistVisitor` são os ConcreteVisitors. A interface `PlaylistItem` representa o Element. As classes `MP3`, `VideoClipe`, `Filme`, `Episodio`, `Serie` e `Pacote` são os ConcreteElements. A classe `Playlist` representa a ObjectStructure e a classe `ClienteAval3` representa o Client.
+#### 1. Motivação
+Conforme enunciado: "A cada nova requisição da equipe de dados **é necessário modificar as
+classes originais**, o que já gerou a injeção de erros como efeitos colaterais". Nesse caso, as novas operações 
+analíticas podem ser entendidas como algoritmos. O padrão Visitor permite desacoplar o algoritmo do objeto, permitindo 
+que novas operações possam ser adicionadas em novos visitors, minimizando efeitos colaterais.
+
+#### 2. Participantes
+- 2.1. `PlaylistVisitor`: Cumpre o papel de `Visitor`, definindo um método `visit` para cada item de playlist
+- 2.2. `PlaylistItem`: Interface `Element`, que permite aos itens concretos aceitarem o PlaylistVisitor
+- 2.3. `LarguraBandaVisitor`, `RelatorioNomesVisitor` e `XmlPlaylistVisitor`: `PlaylistVisitor`s concretos
+- 2.4. `MP3`, `VideoClipe`, `Episodio`, e implementações de `ConteudoComponent`: `PlaylistItem`s concretos
+- `Playlist` serve como uma classe estrutural que agrupa os diversos `PlaylistItem`
+
+---
+A classe `ClienteAval3` representa o Client para todos os padrões

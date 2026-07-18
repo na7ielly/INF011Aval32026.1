@@ -6,7 +6,7 @@ import br.edu.ifba.inf011.model.comercial.Pacote;
 import br.edu.ifba.inf011.model.comercial.Serie;
 import br.edu.ifba.inf011.model.playlist.MP3;
 import br.edu.ifba.inf011.model.playlist.Playlist;
-import br.edu.ifba.inf011.model.playlist.VideoClipe;
+import br.edu.ifba.inf011.model.playlist.Video;
 
 /** Visitor: declara uma operação para cada ConcreteElement. */
 public interface PlaylistVisitor {
@@ -15,7 +15,7 @@ public interface PlaylistVisitor {
 
     void visit(MP3 mp3);
 
-    void visit(VideoClipe videoClipe);
+    void visit(Video video);
 
     void visit(Filme filme);
 

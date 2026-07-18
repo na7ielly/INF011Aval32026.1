@@ -8,7 +8,7 @@ import br.edu.ifba.inf011.model.comercial.Serie;
 import br.edu.ifba.inf011.model.playlist.MP3;
 import br.edu.ifba.inf011.model.playlist.Playlist;
 import br.edu.ifba.inf011.model.playlist.PlaylistItem;
-import br.edu.ifba.inf011.model.playlist.VideoClipe;
+import br.edu.ifba.inf011.model.playlist.Video;
 
 /** ConcreteVisitor responsável pela exportação da playlist para XML. */
 public class XmlPlaylistVisitor implements PlaylistVisitor {
@@ -40,10 +40,10 @@ public class XmlPlaylistVisitor implements PlaylistVisitor {
     }
 
     @Override
-    public void visit(VideoClipe videoClipe) {
-        this.adicionarLinha("<videoclipe nome=\"" + this.escapar(videoClipe.getNome())
-                + "\" tamanhoMB=\"" + videoClipe.getTamanhoMegaBytes()
-                + "\" link=\"" + this.escapar(videoClipe.getLink()) + "\"/>");
+    public void visit(Video video) {
+        this.adicionarLinha("<videoclipe nome=\"" + this.escapar(video.getNome())
+                + "\" tamanhoMB=\"" + video.getTamanhoMegaBytes()
+                + "\" link=\"" + this.escapar(video.getLink()) + "\"/>");
     }
 
     @Override
